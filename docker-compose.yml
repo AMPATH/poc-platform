@@ -1,0 +1,21 @@
+version: '3'
+services:
+    poc_server:
+        container_name: poc
+        image: ng2-amrs-2.5.0
+        ports:
+            - 3000:80
+    etl_rest_server:
+        container_name: etl_rest_server
+        image: ampath/etl_rest_server
+        ports:
+            - 8006:8004
+        volumes:
+            - /opt/etl/conf:/opt/etl/conf
+    amrs:
+        container_name: ampath_amrs
+        image: ampath/openmrs_2.0.5
+        env_file: main.env
+        restart: unless-stopped
+        ports:
+            - 8080:8080
